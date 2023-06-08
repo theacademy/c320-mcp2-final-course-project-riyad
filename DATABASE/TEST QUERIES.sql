@@ -36,3 +36,34 @@ SELECT *
 FROM orders
 WHERE customerId = 120;
 
+
+-- GET ALL PRODUCT FOR A SPECIFIC ORDER ID orderId153 is good
+SELECT o.orderId,p.productId, p.productCatId, p.productName, p.productPrice,
+       pc.catId AS productCategoryId, pc.productCat AS productCategoryName,
+       o.orderId, o.quantity,
+       c.customerId, c.fName AS customerFirstName, c.lName AS customerLastName,
+       c.phoneNum AS customerPhoneNumber, c.shippingAddress AS customerShippingAddress, c.email AS customerEmail
+FROM orders o
+JOIN orderproduct op ON o.orderId = op.orderId
+JOIN product p ON op.productId = p.productId
+JOIN customer c ON o.customerId = c.customerId
+JOIN productcategory pc ON p.productCatId = pc.catId;
+
+-- add pproducts for order 153
+INSERT INTO `product` (productCatId, productName, productPrice)
+VALUES (1, 'Product 1', 10.99);
+
+SET @productId1 = LAST_INSERT_ID();
+
+INSERT INTO `product` (productCatId, productName, productPrice)
+VALUES (1, 'Product 2', 15.99);
+
+SET @productId2 = LAST_INSERT_ID();
+
+INSERT INTO `orderproduct` (orderId, productId)
+VALUES (153, @productId1);
+
+INSERT INTO `orderproduct` (orderId, productId)
+VALUES (153, @productId2);
+
+
