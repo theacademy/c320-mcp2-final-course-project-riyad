@@ -35,6 +35,14 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();
 
+//    public List<Order> getOrders() {
+//        return orders;
+//    }
+
+//    public void setOrders(List<Order> orders) {
+//        this.orders = orders;
+//    }
+
     public int getCustomerId() {
         return customerId;
     }

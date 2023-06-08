@@ -1,6 +1,7 @@
 package org.wiley.controller;
 
 import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * Wiley Edge
  **/
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = TestApplicationConfiguration.class)
+//@ExtendWith(SpringExtension.class)
+@SpringBootTest // (classes = TestApplicationConfiguration.class)
 class ProductControllerTest {
     @Autowired
     SuppliersRepo suppliersRepo;
@@ -45,24 +46,10 @@ class ProductControllerTest {
     @Autowired
     CustomersRepo customersRepo;
 
-
-//    @BeforeAll
-//    public void setUp() {
-//        List<Room> rooms = roomDao.getAllRooms();
-//        for (Room room : rooms) {
-//            roomDao.deleteRoomById(room.getId());
-//        }
-//
-//        List<Employee> employees = employeeDao.getAllEmployees();
-//        for (Employee employee : employees) {
-//            employeeDao.deleteEmployeeById(employee.getId());
-//        }
-//
-//        List<Meeting> meetings = meetingDao.getAllMeetings();
-//        for (Meeting meeting : meetings) {
-//            meetingDao.deleteMeetingById(meeting.getId());
-//        }
-//    }
+    @BeforeEach
+    public void clearTable() {
+        productsRepo.deleteAll();
+    }
 
     @Test
     void test_getAllProducts() {
@@ -133,7 +120,7 @@ class ProductControllerTest {
         productsRepo.deleteById(238);
         List<Product> ProductListFromDao = productsRepo.findAll();
         assertEquals(0, ProductListFromDao.size());
-        productsRepo.deleteById(235);
+
 
 
     }
