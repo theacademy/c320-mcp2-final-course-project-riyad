@@ -1,25 +1,16 @@
 package org.wiley.controller;
 
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-import org.wiley.TestApplicationConfiguration;
 import org.wiley.dao.CustomersRepo;
 import org.wiley.dao.OrdersRepo;
 import org.wiley.dao.ProductsRepo;
 import org.wiley.dao.SuppliersRepo;
-import org.wiley.entity.Customer;
-import org.wiley.entity.Order;
-import org.wiley.entity.Product;
 import org.wiley.entity.Supplier;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,8 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Wiley Edge
  **/
 
-//@ExtendWith(SpringExtension.class)
-@SpringBootTest // (classes = TestApplicationConfiguration.class)
+@SpringBootTest
 class SupplierControllerTest {
 
     @Autowired

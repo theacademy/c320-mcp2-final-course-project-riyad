@@ -1,9 +1,4 @@
--- Giovanni De Franceschi, Abdullah Tariq, Riyad Argoub
--- WILEY EDGE - FINAL PROJECT - SHOPPING CART APP FULL STACK
 
-DROP DATABASE IF EXISTS shoppingcart;
-CREATE DATABASE shoppingcart;
-USE shoppingcart;
 CREATE TABLE productCategory (
   catId INT AUTO_INCREMENT PRIMARY KEY,
   productCat VARCHAR(40),

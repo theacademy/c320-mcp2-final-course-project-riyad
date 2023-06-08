@@ -1,3 +1,10 @@
+-- Giovanni De Franceschi, Abdullah Tariq, Riyad Argoub
+-- WILEY EDGE - FINAL PROJECT - SHOPPING CART APP FULL STACK
+
+DROP DATABASE IF EXISTS shoppingcart;
+
+CREATE DATABASE shoppingcart;
+USE shoppingcart;
 
 DROP TABLE IF EXISTS `customer` ;
 

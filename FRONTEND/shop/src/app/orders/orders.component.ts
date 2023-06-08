@@ -16,6 +16,7 @@ export class OrdersComponent implements OnInit {
   title: string = 'Orders';
   products: any[] = [];
   customer: ICustomer | undefined;
+  orders!: any;
 
   constructor(
     private dataService: DataService,
@@ -27,18 +28,39 @@ export class OrdersComponent implements OnInit {
   ngOnInit() {
     this.title = 'Orders';
     this.route.paramMap.subscribe((params) => {
-      const customerId = params.get('id');
-      console.log('Customer ID:', customerId); // Log the customer ID
-
+      const customerId = params.get('customerId');
+      console.log('Customer ID:', customerId);
+  
       if (customerId) {
         const id = parseInt(customerId, 10);
-        this.dataService.getProductsByOrder(id).subscribe((products: IProduct[]) => {
-          this.products = products;
-          console.log('Products:', products); // Log the products
+  
+        this.dataService.getOrdersByCustomerId(id).subscribe((orders: IOrder[]) => {
+          this.orders = orders;
+          console.log('Orders:', this.orders); // Output the fetched orders
+  
+          // Extract the orderId list
+          const orderIdList = this.orders.map((order: IOrder) => order.orderId);
+          console.log('OrderId List:', orderIdList);
+          this.callProductsApi(orderIdList)
         });
       }
     });
+      }
+
+  callProductsApi(orderIdList: number[]) {
+    for (let id of orderIdList) {
+      this.dataService.getProductsByOrder(id).subscribe((products: IProduct[]) => {
+        console.log('Products for OrderId', id, ':', products);
+        
+      });
+    }
   }
+}
+
+
+
+
+
 
   // getImageUrl(productName: string): string {
   //   const unsplashAccessKey = 'YOUR_UNSPLASH_ACCESS_KEY';
@@ -58,7 +80,7 @@ export class OrdersComponent implements OnInit {
   
   
   
-}
+
 
   //     if (customerId) {
   //       const id = parseInt(customerId, 10);
