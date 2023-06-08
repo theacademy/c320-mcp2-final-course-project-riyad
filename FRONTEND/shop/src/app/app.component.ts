@@ -8,7 +8,7 @@ import { AuthService } from './core/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  isLoginPage: boolean = true;
+  isLoginPage: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 

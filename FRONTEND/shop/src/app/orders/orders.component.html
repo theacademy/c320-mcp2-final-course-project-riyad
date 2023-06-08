@@ -1,50 +1,87 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+<h3>online-shop management tool</h3>
+
+
 <div class="container">
-  <h1>Order details</h1>
+  <h2>Order details</h2>
   <table class="table table-hover orders-table">
     <thead>
       <tr>
-        <th>Product ID</th>
-        <th>Product Category ID</th>
-        <th>Product Category Name</th>
-        <th>Product Name</th>
-        <th>Product Price</th>
+        <th></th>
         <th>Order ID</th>
-        <th>Order Quantity</th>
         <th>Customer ID</th>
-        <th>Customer First Name</th>
-        <th>Customer Last Name</th>
+        <th>Customer Name</th>
+        <th>Customer Email</th>
         <th>Customer Phone Number</th>
         <th>Customer Shipping Address</th>
-        <th>Customer Email</th>
-        <th>Product Image</th>
+        <th>Completed</th> 
+
       </tr>
     </thead>
-    <tbody class="table-order">
+    <tbody>
       <ng-container *ngFor="let order of orders">
-        <tr>
-          <td>{{ order.productId }}</td>
-          <td>{{ order.productCategory?.catId }}</td>
-          <td>{{ order.productCategory?.productCat }}</td>
-          <td>{{ order.productName }}</td>
-          <td>{{ order.productPrice }}</td>
-          <td>{{ order.orderId }}</td>
-          <td>{{ order.quantity }}</td>
+        <tr class="order-row">
+          <td>
+            <button class="expand-btn">
+              <i class="fas" [ngClass]="{ 'fa-minus': order.expanded, 'fa-plus': !order.expanded }"></i>
+            </button>
+          </td>
+          <td (click)="toggleProducts(order)">
+            {{ order.orderId }}
+          </td>
           <td>{{ order.customer.customerId }}</td>
-          <td>{{ order.customer.fName }}</td>
-          <td>{{ order.customer.lName }}</td>
+          <td>{{ order.customer.fName }} {{ order.customer.lName }}</td>
+          <td>{{ order.customer.email }}</td>
           <td>{{ order.customer.phoneNum }}</td>
           <td>{{ order.customer.shippingAddress }}</td>
-          <td>{{ order.customer.email }}</td>
           <td>
-            <ng-container *ngFor="let product of order.products">
-              <img [src]="product.image" alt="Product Image" width="150" />
-            </ng-container>
+            <input type="checkbox" [(ngModel)]="order.completed" />
+          </td> <!-- Added checkbox for completion status -->
+        </tr>
+        <tr *ngIf="isExpanded(order)">
+          <td colspan="7" class="sub-category-cell"> <!-- Add the class "sub-category-cell" -->
+            <table class="table sub-table">
+              <thead>
+                <tr>
+                  <th class="light"></th>
+                   <th class="sub"></th>
+  
+                  <th>Product ID</th>
+                  <th>Product Category ID</th>
+                  <th>Product Name</th>
+                  <th>Product Price</th>
+                  <th>Quantity</th>
+                  <th>Total price</th>
+                  <th>Category Name</th>
+                  <th>Image</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of order.products">
+                  <td></td>
+                  <td></td>
+                  <td class="sub"></td>
+                  <td>{{ product.productId }}</td>
+                  <td>{{ product.productCatId }}</td>
+                  <td>{{ product.productName }}</td>
+                  <td>{{ product.productPrice }}</td>
+                  <td>{{ product.quantity }}</td>
+                  <td>{{ product.productPrice * product.quantity }}</td>
+                  <td>{{ product.productCategoryName }}</td>
+                  <td>
+                    <img [src]="getImage(product.productCategoryName)" alt="Product Image" width="150" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </td>
         </tr>
       </ng-container>
       <tr *ngIf="!orders || orders.length === 0">
-        <td colspan="14">No orders found.</td>
+        <td colspan="7">No orders found.</td>
       </tr>
     </tbody>
   </table>
 </div>
+
