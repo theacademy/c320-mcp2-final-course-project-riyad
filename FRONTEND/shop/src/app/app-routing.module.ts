@@ -17,7 +17,8 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', component: LoginPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'about', component: AboutUsComponent },
-  { path: 'contact', component: ContactComponent }
+  { path: 'contact', component: ContactComponent },
+  { path: 'orders/:customerId',  loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)},               
 
 
 ];

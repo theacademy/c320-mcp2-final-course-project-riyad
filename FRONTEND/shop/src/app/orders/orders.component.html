@@ -1,83 +1,50 @@
-<!--  DISPLAY SPECIFIC ORDER DETAILS -->
-<!-- http://localhost:8080/products/orderid/158 -->
-
-
 <div class="container">
-  <h1> Order details</h1>
-<table class="table table-hover orders-table">
-  <thead>
-    <tr>
-      <th>Product ID</th>
-      <th>Product Category ID</th>
-      <th>Product Category Name</th>
-      <th>Product Name</th>
-      <th>Product Price</th>
-      <th>Order ID</th>
-      <th>Order Quantity</th>
-      <th>Customer ID</th>
-      <th>Customer First Name</th>
-      <th>Customer Last Name</th>
-      <th>Customer Phone Number</th>
-      <th>Customer Shipping Address</th>
-      <th>Customer Email</th>
-      <th>Product Image</th>
-    </tr>
-  </thead>
-  <tbody class="table-order">
-    <ng-container *ngFor="let item of products">
+  <h1>Order details</h1>
+  <table class="table table-hover orders-table">
+    <thead>
       <tr>
-        <td>{{ item.productId }}</td>
-        <td>{{ item.productCategory.catId }}</td>
-        <td>{{ item.productCategory.productCat }}</td>
-        <td>{{ item.productName }}</td>
-        <td>{{ item.productPrice }}</td>
-        <td>{{ item.orders[0].orderId }}</td>
-        <td>{{ item.orders[0].quantity }}</td>
-        <td>{{ item.orders[0].customer.customerId }}</td>
-        <td>{{ item.orders[0].customer.fName }}</td>
-        <td>{{ item.orders[0].customer.lName }}</td>
-        <td>{{ item.orders[0].customer.phoneNum }}</td>
-        <td>{{ item.orders[0].customer.shippingAddress }}</td>
-        <td>{{ item.orders[0].customer.email }}</td>
-        <td>
-          <ng-container *ngIf="item.product?.image?.url !== ''">
-            <img [src]="item.product.image.url" alt="" />
-          </ng-container>
-          <img
-            src="./../../assets/images/placeholder.jpg"
-            width="150"
-            alt="Placeholder Image"
-          />
-        </td>
+        <th>Product ID</th>
+        <th>Product Category ID</th>
+        <th>Product Category Name</th>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Order ID</th>
+        <th>Order Quantity</th>
+        <th>Customer ID</th>
+        <th>Customer First Name</th>
+        <th>Customer Last Name</th>
+        <th>Customer Phone Number</th>
+        <th>Customer Shipping Address</th>
+        <th>Customer Email</th>
+        <th>Product Image</th>
       </tr>
-    </ng-container>
-    <tr *ngIf="!products || products.length === 0">
-      <td colspan="14">No orders found.</td>
-    </tr>
-  </tbody>
-
-
-
-</table>
-<div class="google-maps-container">
-  GOOGLE MAPS
+    </thead>
+    <tbody class="table-order">
+      <ng-container *ngFor="let order of orders">
+        <tr>
+          <td>{{ order.productId }}</td>
+          <td>{{ order.productCategory?.catId }}</td>
+          <td>{{ order.productCategory?.productCat }}</td>
+          <td>{{ order.productName }}</td>
+          <td>{{ order.productPrice }}</td>
+          <td>{{ order.orderId }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.customer.customerId }}</td>
+          <td>{{ order.customer.fName }}</td>
+          <td>{{ order.customer.lName }}</td>
+          <td>{{ order.customer.phoneNum }}</td>
+          <td>{{ order.customer.shippingAddress }}</td>
+          <td>{{ order.customer.email }}</td>
+          <td>
+            <ng-container *ngFor="let product of order.products">
+              <img [src]="product.image" alt="Product Image" width="150" />
+            </ng-container>
+          </td>
+        </tr>
+      </ng-container>
+      <tr *ngIf="!orders || orders.length === 0">
+        <td colspan="14">No orders found.</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-</div>
-<!-- 
-  JSON RESPONSE
-  0: Object {
- productId: 105, productName: "Product 1", productPrice: 10.99, … }
-​​
-orders: Array [ {…} ]
-​​
-productCategory: Object { catId: 1, productCat: "Electronics", catImage: null }
-​​
-productId: 105
-​​
-productName: "Product 1"
-​​
-productPrice: 10.99
-​​
-<prototype>: Object { … }
-​
-length: 1 -->

@@ -74,9 +74,7 @@
       <tr class="table-row" *ngFor="let cust of filteredCustomers">
         <td>
           
-          <a class[routerLink]="['/orders', cust.customerId]">{{
-            cust.customerId
-          }}</a>
+          <a [routerLink]="['/orders', cust.customerId]">{{ cust.customerId }}</a>
         </td>
         <td>{{ cust.fName }}</td>
         <td>{{ cust.lName }}</td>
