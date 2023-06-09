@@ -37,7 +37,6 @@ public class OrderProductController {
                 "JOIN customer c ON o.customerId = c.customerId " +
                 "JOIN productcategory pc ON p.productCatId = pc.catId " +
                 "WHERE o.orderId = ? ";
-//                "GROUP BY o.orderId";
         List<Map<String, Object>> orderProducts = jdbcTemplate.queryForList(sql, orderId);
         return jdbcTemplate.queryForList(sql, orderId);
     }
