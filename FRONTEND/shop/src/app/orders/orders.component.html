@@ -35,8 +35,10 @@
           <td>{{ order.customer.email }}</td>
           <td>{{ order.customer.phoneNum }}</td>
           <td>{{ order.customer.shippingAddress }}</td>
-          <td><button class="image-button" id="map-button"name="map-button" (click)="openPopup()"></button><label id="image-button-label" for="map-button">Map</label>
-          </td> 
+          <td>
+            <button class="image-button" id="map-button" name="map-button" (click)="openPopup(extractShippingAddresses())"></button>
+            <label id="image-button-label" for="map-button">Map</label>
+          </td>
           <td></td>
         </tr>
         <tr *ngIf="isExpanded(order)">
