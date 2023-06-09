@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { API_KEY } from './../api-keys';
   styleUrls: ['./popup.component.css'],
 })
 export class PopupComponent implements OnInit {
+  @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
   initialCoordinates = {
     lat: 45.5019,
     lng: 73.5674,
@@ -18,25 +19,36 @@ export class PopupComponent implements OnInit {
     zoom: 15,
     center: this.initialCoordinates,
     mapTypeId: 'hybrid',
+    disableDefaultUI: true,
+    mapStyles: [
+      {
+        featureType: 'poi',
+        stylers: [{ visibility: 'off' }],
+      },
+    ],
   };
-
-  responseFromWeatherAPI: any;
+  map!: google.maps.Map;
+  marker!: google.maps.Marker;
+  googleAddressPlaceHolder: string;
 
   constructor(
     private dialogRef: MatDialogRef<PopupComponent>,
     private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: { addresses: string[] }
-  ) {}
+  ) {
+    this.googleAddressPlaceHolder = data.addresses[0];
+  }
 
   ngOnInit(): void {
-    const addressParts = this.extractAddressParts();
-
-    if (addressParts) {
-      const { city, state, country } = addressParts;
+    const addresses = this.data.addresses;
+    if (addresses && addresses.length > 0) {
+      const addressParts = addresses[0].split(', ');
+      const city = addressParts[1];
+      const state = addressParts[2];
+      const country = addressParts[3];
       const limit = 10;
       const apiKey = API_KEY;
-
-      this.makeWeatherAndMapsApiCalls(city, state, country, limit, apiKey);
+      this.makeWeatherApiCall(city, state, country, limit, apiKey);
     }
   }
 
@@ -44,39 +56,17 @@ export class PopupComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  extractAddressParts(): { city: string; state: string; country: string } | null {
-    const addressParts = this.data.addresses[0].split(',').map((part) => part.trim());
-
-    if (addressParts.length >= 3) {
-      const city = addressParts[1];
-      const state = addressParts[2];
-      const country = addressParts[3];
-
-      return { city, state, country };
-    }
-
-    return null;
-  }
-
-  makeWeatherAndMapsApiCalls(
+  makeWeatherApiCall(
     city: string,
     state: string,
     country: string,
     limit: number,
     apiKey: string
-
-    
   ): void {
-    // Weather API call
-    const weatherApiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(
-      city
-    )},${encodeURIComponent(state)},${encodeURIComponent(country)}&limit=${limit}&appid=${apiKey}`;
+    const weatherApiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${country}&limit=${limit}&appid=${apiKey}`;
 
     console.log('Weather API Request:', weatherApiUrl);
-    console.log('City:', city);
-    console.log('State:', state);
-    console.log('Country:', country);
-    console.log('Limit:', limit);
+
     this.http.get(weatherApiUrl).subscribe(
       (response: any) => {
         if (response && response.length > 0) {
@@ -86,25 +76,42 @@ export class PopupComponent implements OnInit {
           console.log('City:', location.name);
           console.log('Latitude:', lat);
           console.log('Longitude:', lon);
-
-          // Update the initialCoordinates with the retrieved latitude and longitude
           this.initialCoordinates = {
             lat: lat,
             lng: lon,
           };
 
-          console.log(lat, lon);
-
-          // Update the center of the mapConfigurations
-          this.mapConfigurations.center = this.initialCoordinates;
-
-          // Store the response from the weather API
-          this.responseFromWeatherAPI = response;
+          this.initializeMap();
         }
       },
       (error: any) => {
         console.error(error);
       }
     );
+  }
+
+  initializeMap() {
+    this.map = new google.maps.Map(this.mapContainer.nativeElement, {
+      zoom: this.mapConfigurations.zoom,
+      center: this.initialCoordinates,
+      mapTypeId: this.mapConfigurations.mapTypeId,
+      disableDefaultUI: this.mapConfigurations.disableDefaultUI,
+      styles: this.mapConfigurations.mapStyles,
+    });
+
+    this.marker = new google.maps.Marker({
+      position: this.initialCoordinates,
+      map: this.map,
+      title: 'Placeholder',
+      draggable: true,
+    });
+
+    const infoWindow = new google.maps.InfoWindow({
+      content: '<p>SHIP HERE</p>',
+    });
+
+    this.marker.addListener('click', () => {
+      infoWindow.open(this.map, this.marker);
+    });
   }
 }

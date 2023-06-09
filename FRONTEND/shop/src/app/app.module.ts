@@ -35,7 +35,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     LoginPageComponent,
     AboutUsComponent,
     ContactComponent,   
-    PhoneNumberFormatPipe, PopupComponent
+    // PhoneNumberFormatPipe,
+    PopupComponent
   ],
   imports: [
     FormsModule,
@@ -51,7 +52,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     MatDialogModule,
     GoogleMapsModule,
   ],
-  providers: [DataService, AuthService],
+  providers: [DataService, AuthService, PhoneNumberFormatPipe],
   bootstrap: [AppComponent]
 })
 

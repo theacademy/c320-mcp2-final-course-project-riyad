@@ -79,3 +79,13 @@
     font-style: italic;
     color: white;
   }
+
+  table tr {
+    border-bottom: 1px solid  lightgrey;
+  }
+
+  td{
+    text-align: center;
+  }
+
+ 

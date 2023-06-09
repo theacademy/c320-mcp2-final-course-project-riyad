@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AuthService } from './../core/auth.service';
+import { AfterViewInit,Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable, catchError, forkJoin, map, of } from 'rxjs';
 import { DataService } from '../core/data.service';
@@ -12,7 +13,8 @@ import { PopupComponent } from './../popup/popup.component';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css'],
 })
-export class OrdersComponent implements OnInit, AfterViewInit {
+export class OrdersComponent implements OnInit, AfterViewInit  {
+  [x: string]: any;
   customersOrderTotal: number = 0;
   title: string = 'Orders';
   products: any[] = [];
@@ -26,10 +28,13 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     private dataService: DataService,
     private route: ActivatedRoute,
     private http: HttpClient,
-    public dialog: MatDialog
+    public AuthService: AuthService,
+    public dialog: MatDialog,
+
   ) {}
 
   ngOnInit() {
+
     this.title = 'Orders';
     this.route.paramMap.subscribe((params) => {
       const customerId = params.get('customerId');
@@ -38,23 +43,28 @@ export class OrdersComponent implements OnInit, AfterViewInit {
       if (customerId) {
         const id = parseInt(customerId, 10);
 
-        this.dataService.getOrdersByCustomerId(id).subscribe((orders: IOrder[]) => {
-          this.orders = orders;
-          console.log('Orders:', this.orders);
+        this.dataService
+          .getOrdersByCustomerId(id)
+          .subscribe((orders: IOrder[]) => {
+            this.orders = orders;
+            console.log('Orders:', this.orders);
 
-          const orderIdList = this.orders.map((order: IOrder) => order.orderId);
-          console.log('OrderId List:', orderIdList);
-          this.callProductsApi(orderIdList);
-        });
+            const orderIdList = this.orders.map(
+              (order: IOrder) => order.orderId
+            );
+            console.log('OrderId List:', orderIdList);
+            this.callProductsApi(orderIdList);
+          });
       }
     });
+
+
   }
 
   ngAfterViewInit() {
     setTimeout(() => {
       const addresses = this.extractShippingAddresses();
       console.log(">>>>>" + addresses);
-      this.openPopup(addresses);
     }, 1000);
   }
 
@@ -71,16 +81,17 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
   callProductsApi(orderIdList: number[]) {
     for (let id of orderIdList) {
-      this.dataService.getProductsByOrder(id).subscribe((products: IProduct[]) => {
-        const order = this.orders.find((o: IOrder) => o.orderId === id);
-        if (order) {
-          order.products = products;
-          console.log(products);
-        }
-      });
+      this.dataService
+        .getProductsByOrder(id)
+        .subscribe((products: IProduct[]) => {
+          const order = this.orders.find((o: IOrder) => o.orderId === id);
+          if (order) {
+            order.products = products;
+            console.log(products);
+          }
+        });
     }
   }
-
   isExpanded(order: any): boolean {
     return order.hasOwnProperty('expanded') ? order.expanded : false;
   }
