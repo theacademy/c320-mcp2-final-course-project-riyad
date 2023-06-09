@@ -15,8 +15,6 @@ import java.util.List;
  * */
 @Repository
 public interface OrdersRepo extends JpaRepository<Order, Integer> {
-//    List<Order> findByCustomerId(int customerId);
-
 
     @Query("SELECT o FROM Order o WHERE o.customer.customerId = :customerId")
     List<Order> getOrdersByCustomerId(@Param("customerId") Integer customerId);
