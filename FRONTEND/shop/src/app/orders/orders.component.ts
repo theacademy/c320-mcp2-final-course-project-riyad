@@ -5,6 +5,9 @@ import { Observable, catchError, forkJoin, map, of } from 'rxjs';
 import { DataService } from '../core/data.service';
 import { ICustomer, IOrder, IProduct } from '../shared/Interfaces';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupComponent } from './../popup/popup.component';
+
 
 @Component({
   selector: 'app-orders',
@@ -12,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./orders.component.css'],
 })
 export class OrdersComponent implements OnInit {
+  [x: string]: any;
   customersOrderTotal: number = 0;
   title: string = 'Orders';
   products: any[] = [];
@@ -26,7 +30,8 @@ export class OrdersComponent implements OnInit {
     private dataService: DataService,
     private route: ActivatedRoute,
     private http: HttpClient,
-    public AuthService: AuthService
+    public AuthService: AuthService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -98,7 +103,9 @@ export class OrdersComponent implements OnInit {
         }
       }
       
-      
+      openPopup(): void {
+        this['dialog'].open(PopupComponent);
+      }
       
     }
     

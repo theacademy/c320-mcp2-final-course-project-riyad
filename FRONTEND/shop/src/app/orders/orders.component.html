@@ -35,17 +35,18 @@
           <td>{{ order.customer.email }}</td>
           <td>{{ order.customer.phoneNum }}</td>
           <td>{{ order.customer.shippingAddress }}</td>
-          <td>
-            <input type="checkbox" [(ngModel)]="order.completed" />
-          </td> <!-- Added checkbox for completion status -->
+          <td><button class="image-button" id="map-button"name="map-button" (click)="openPopup()"></button><label id="image-button-label" for="map-button">Map</label>
+          </td> 
+          <td></td>
         </tr>
         <tr *ngIf="isExpanded(order)">
-          <td colspan="7" class="sub-category-cell"> <!-- Add the class "sub-category-cell" -->
+          <td colspan="7" class="sub-category-cell">
             <table class="table sub-table">
               <thead>
                 <tr>
                   <th class="light"></th>
-                   <th class="sub"></th>
+                   <th class="sub">          
+                  </th>
   
                   <th>Product ID</th>
                   <th>Product Category ID</th>
@@ -60,7 +61,7 @@
               <tbody>
                 <tr *ngFor="let product of order.products">
                   <td></td>
-                  <td></td>
+                  <td>  <input type="checkbox" [(ngModel)]="order.completed" /></td>
                   <td class="sub"></td>
                   <td>{{ product.productId }}</td>
                   <td>{{ product.productCatId }}</td>
@@ -70,7 +71,7 @@
                   <td>{{ product.productPrice * product.quantity }}</td>
                   <td>{{ product.productCategoryName }}</td>
                   <td>
-                    <img [src]="getImage(product.productCategoryName)" alt="Product Image" width="150" />
+                    <img [src]="getImage(product.productCategoryName)" alt="Product Image" width="100" />
                   </td>
                 </tr>
               </tbody>

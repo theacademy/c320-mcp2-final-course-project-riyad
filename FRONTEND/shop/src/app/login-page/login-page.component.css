@@ -8,7 +8,7 @@ h2{
 
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 100vh;
 }
@@ -85,7 +85,7 @@ h2 {
 }
 
 h3{
-  margin-top:2em;
+  margin-top:.3em;
   color:  #0072f4cb;
   font-weight: bolder;
   margin-bottom:0;
