@@ -27,16 +27,16 @@
               <i class="fas" [ngClass]="{ 'fa-minus': order.expanded, 'fa-plus': !order.expanded }"></i>
             </button>
           </td>
-          <td (click)="toggleProducts(order)">
-            {{ order.orderId }}
-          </td>
+            <td (click)="toggleProducts(order)" style="text-align: center;"><b>{{ order.orderId }}</b></td>
           <td>{{ order.customer.customerId }}</td>
           <td>{{ order.customer.fName }} {{ order.customer.lName }}</td>
           <td>{{ order.customer.email }}</td>
           <td>{{ order.customer.phoneNum }}</td>
           <td>{{ order.customer.shippingAddress }}</td>
-          <td><button class="image-button" id="map-button"name="map-button" (click)="openPopup()"></button><label id="image-button-label" for="map-button">Map</label>
-          </td> 
+          <td>
+            <button class="image-button" id="map-button" name="map-button" (click)="openPopup(extractShippingAddresses())"></button>
+            <label id="image-button-label" for="map-button">Map</label>
+          </td>
           <td></td>
         </tr>
         <tr *ngIf="isExpanded(order)">
@@ -44,10 +44,9 @@
             <table class="table sub-table">
               <thead>
                 <tr>
-                  <th class="light"></th>
-                   <th class="sub">          
-                  </th>
-  
+                  <th class="sub"></th>
+                  <th classs="sub"></th>
+                  <th class="sub" style="width: 10px;"></th>
                   <th>Product ID</th>
                   <th>Product Category ID</th>
                   <th>Product Name</th>
@@ -61,9 +60,9 @@
               <tbody>
                 <tr *ngFor="let product of order.products">
                   <td></td>
-                  <td>  <input type="checkbox" [(ngModel)]="order.completed" /></td>
-                  <td class="sub"></td>
-                  <td>{{ product.productId }}</td>
+                  <td class="sub" style="width: 10px;">    
+                  <td ></td>
+                  <td style="text-align:center;">{{ product.productId }}</td>
                   <td>{{ product.productCatId }}</td>
                   <td>{{ product.productName }}</td>
                   <td>{{ product.productPrice }}</td>

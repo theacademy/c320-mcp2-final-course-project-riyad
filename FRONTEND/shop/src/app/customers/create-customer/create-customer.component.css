@@ -86,3 +86,7 @@ h2{
     background-color: white;
     border: 1px solid #0072f4cb;
   }
+
+  table tr {
+    border-bottom: 1px solid  lightgrey;
+  }

@@ -60,4 +60,14 @@ h2 {
     color: white;
   }
 
-  
+  table tr {
+    border-bottom: 1px solid  lightgrey;
+  }
+
+  td{
+    text-align: center;
+  }
+
+  .table-row{
+    border-bottom: 1px solid  lightgrey;
+  }
