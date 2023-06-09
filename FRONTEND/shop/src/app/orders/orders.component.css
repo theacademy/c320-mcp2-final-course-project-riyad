@@ -44,9 +44,10 @@ td{
   }
 
   .expand-btn{
-    background-color: black;
+    background-color: #0072f4cb;
     color: white;
     border-radius: 50%;
+    border:none;
     width:25px;
     height:25px;
     padding:0;
@@ -95,4 +96,39 @@ h3{
   font-family: 'Roboto', sans-serif;
   font-style: italic;
   color: white;
+}
+
+.image-button{
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background-image: url('../../assets/images/map.png');
+  background-size: cover;
+  border:none;
+
+}
+.image-button:hover{
+  border: 1px solid #0072f4cb;
+}
+
+#image-button-label{
+  color:#0072f4cb;
+}
+
+#image-button-label:hover{
+  color:white;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table tr:last-child {
+  border-radius: 0 0 10px 10px;
+}
+
+
+table tr {
+  border-bottom: 1px solid lightgrey;
 }
