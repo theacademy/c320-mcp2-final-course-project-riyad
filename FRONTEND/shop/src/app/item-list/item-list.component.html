@@ -1,0 +1,16 @@
+<!--  PRODUCT CATALOG -->
+
+<div *ngFor="let product of products" class="product-container">
+    <div class="product-card" >
+      <img [src]="product.image" alt="Product Image">
+      <h3>{{ product.name }}</h3>
+      <p>Price: {{ product.price }}</p>
+      <p>Product ID: {{ product.id }}</p>
+      <div class="quantity-controls">
+        <button (click)="increaseQuantity(product)">+</button>
+        <span>{{ product.quantity }}</span>
+        <button (click)="decreaseQuantity(product)">-</button>
+      </div>
+      <button (click)="resetQuantity(product)">Reset</button>
+    </div>
+  </div>

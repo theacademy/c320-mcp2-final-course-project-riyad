@@ -1,0 +1,139 @@
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.navbar-collapse {
+  justify-content: flex-end;
+  gap: 1em;
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2em;
+}
+
+.nav-item {
+  margin-right: 0;
+  text-align: center;
+  font-size:1em;
+}
+
+.nav-link {
+  font-weight: light !important;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+
+.navbar-nav {
+  margin-top:.2em;
+  padding: .3em;
+}
+
+.nav-item.nav-link {
+  font-size: 1.2em;
+  padding-top: 2em;
+}
+
+.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top {
+  background-color: white;
+  border-radius: 15px;
+  padding: 1em;
+  border: solid 1px  #0072f4cb;
+  transition: margin-top 1s ease; 
+}
+
+.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top:hover {
+  margin-top: 0em;
+}
+
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin-right: 10px;
+}
+
+@media (max-width: 576px) {
+  .logo {
+    width: 70px;
+  }
+}
+
+.nav-item.nav-link {
+  font-size: 1.2em;
+  padding-top: 2em;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.nav-item.nav-link.disabled {
+  pointer-events: none;
+  color: #ccc !important;
+}
+
+a.nav-item.nav-link.disabled {
+  pointer-events: none;
+  color: #ccc;
+  text-decoration: none;
+  cursor: not-allowed;
+}
+
+
+.footer {
+  font-size: 0.8em;
+  font-style: italic;
+  border-radius: 15px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0.3em;
+  min-width: 300px;
+  max-width: 50%;
+  background-color: white;
+  color:  #7092b9cb;
+  text-align: center;
+  padding: 0.5em 2em; /* Adjust the padding values as needed */
+  border: 1px solid #7092b9cb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:hover {
+  text-shadow: 0 0 5px  #7092b9cb;
+  text-decoration-color: #0072f4cb;
+}
+
+
+.nav-link:hover {
+  color: #0072f4cb;
+}
+
+footer {
+  background-color: #333;
+  padding: 10px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+}
+
+footer p {
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+}
+

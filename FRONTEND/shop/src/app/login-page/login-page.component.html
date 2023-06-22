@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="form-container">
+    <img src="../../assets/images/logo_main.png" alt="logo" class="logo" width="250px"/>
+    <h2>SHOP MANAGEMENT TOOL</h2>
+
+
+    <form (ngSubmit)="login()">
+      <br />
+      <div class="input-field">
+        <h3>LOGIN WITH YOUR EMAIL</h3>
+        <input type="text" id="email" name="email" [(ngModel)]="email" placeholder="supplier@example.com"/>
+
+        <div class="error-row" *ngIf="!isEmailValidSyntax() && email !== ''">
+          <p class="has-error">Email is invalid!</p>
+        </div>
+
+        <div class="button">
+          <button type="submit">Login</button>
+        </div>
+      </div>
+    </form>
+    <div class="list-of-dummy-suppliers">
+      <h4> List of dummies suppliers</h4>
+      <ul>
+        <li>
+          supplier@example.com
+          http://localhost:4200/customers?customerId=120,121,122,123,124,125,126,127
+        </li>
+        <li>
+          supplier2@example.com
+        </li>
+      </ul>
+    </div>
+  
+  </div>
+
+
+
